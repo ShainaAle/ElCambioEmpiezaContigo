@@ -339,6 +339,37 @@
 
     <!-- INICIALIZACIÓN DE GRÁFICOS (CHART.JS) -->
     <script>
+        // Lógica del Simulador de Huella Verde
+        function updateHuella() {
+            let score = 0;
+            const toggles = document.querySelectorAll('.eco-toggle');
+            toggles.forEach(t => { if(t.checked) score += 20; });
+            
+            const planet = document.getElementById('planet-visual');
+            const status = document.getElementById('planet-status');
+            const bar = document.getElementById('eco-progress-bar');
+            
+            bar.style.width = score + '%';
+            
+            if(score === 0) {
+                planet.innerHTML = '🤒🌍';
+                status.innerText = 'Planeta en riesgo... ¡Empieza a actuar!';
+                bar.className = 'bg-red-500 h-4 rounded-full transition-all duration-500';
+            } else if(score <= 40) {
+                planet.innerHTML = '🤕🌎';
+                status.innerText = 'Pequeños pasos, pero falta esfuerzo.';
+                bar.className = 'bg-yellow-400 h-4 rounded-full transition-all duration-500';
+            } else if(score <= 80) {
+                planet.innerHTML = '😌🌏';
+                status.innerText = '¡Vas muy bien! El entorno está sanando.';
+                bar.className = 'bg-blue-400 h-4 rounded-full transition-all duration-500';
+            } else {
+                planet.innerHTML = '✨🌿🌍✨';
+                status.innerText = '¡Excelente! Eres un verdadero guardián ecológico.';
+                bar.className = 'bg-ecoGreen h-4 rounded-full transition-all duration-500';
+            }
+        }
+
         window.onload = function() {
             Chart.defaults.font.family = "'Nunito', sans-serif";
             Chart.defaults.font.weight = 'bold';
